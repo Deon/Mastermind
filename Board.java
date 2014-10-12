@@ -1,0 +1,92 @@
+/* Board
+ * By: Deon Hua
+ * Date: 10 May 2014
+ * Description: Board - This is the overall board, and encompasses everything (BoardPanel, where the game is played) and
+ * also the buttons and layouts provided for GUI interaction.
+ */
+
+// Import classes.
+import java.awt.Color; 
+import java.awt.Graphics; 
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.util.ArrayList;
+import javax.swing.JPanel; 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseEvent;
+
+
+public class Board extends JFrame
+{ 
+    // Instance variables.
+    private BorderLayout layout;     
+    private BoardPanel panel;
+    
+    //Layout system for the buttons at the bottom.
+    private GridLayout buttonLayout;
+    private JPanel buttonPanel;        
+    private JButton check;
+    private JButton instructions;
+    
+    // Constructor
+    public Board(int height){
+        //Setup the layout and instantiate variables.
+        super ("Mastermind!");
+        layout = new BorderLayout();
+        setLayout(layout);        
+        panel = new BoardPanel(height);
+        
+        //Setting up the layout for the buttons.
+        buttonLayout = new GridLayout(1,2);
+        buttonPanel = new JPanel(buttonLayout);
+        check = new JButton("Check");
+        instructions = new JButton("Instructions");
+        buttonPanel.add(check);
+        buttonPanel.add(instructions);
+        
+        //Assign handler.
+        ButtonHandler buttonHandler = new ButtonHandler();
+        check.addActionListener(buttonHandler);
+        instructions.addActionListener(buttonHandler);
+        
+        //Add panels to the overall BorderLayout
+        add(panel, BorderLayout.CENTER);        
+        add(buttonPanel, BorderLayout.SOUTH);
+      
+    }
+    
+    
+    //Handles Button events.
+    private class ButtonHandler implements ActionListener
+    {
+        public void actionPerformed (ActionEvent event){
+            // If the check button was pressed.
+            if (event.getSource() == check){                
+                panel.buttonClicked();
+            }
+            //Instruction popup.
+            else {
+                String message = String.format("You have 7 tries to guess the correct colour combination. There are no duplicated colours.\n" + 
+                                               "After pressing the check button, the circles next to your guessed colours will turn either green, blue, or red.\n" + 
+                                               "\nGreen = Correct colour in the correct spot. \nBlue = Correct colour in the wrong spot. \nRed = Wrong colour.");
+                JOptionPane.showMessageDialog(null, message, "Instructions", JOptionPane.INFORMATION_MESSAGE);
+            }
+                    
+                                             
+                                               
+                                                   
+                                                   
+                
+        }
+    }  
+}
+
+
+

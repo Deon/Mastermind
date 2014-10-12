@@ -1,0 +1,26 @@
+/* TestDraw
+ * By: Deon Hua
+ * Date: 10 May 2014
+ * Description: The TestDraw class.
+ */
+
+// Import classes.
+import javax.swing.JFrame; 
+
+
+public class TestDraw 
+{ 
+    //Main method. 
+    public static void main( String args[] ) 
+    {  
+        //Instantiates objects.
+        int height = 650;
+
+        Board application = new Board(height);         
+        
+        //Sets up the window. 
+        application.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE ); 
+        application.setSize( 400, height ); 
+        application.setVisible( true ); 
+    } // end main     
+}
